@@ -1,20 +1,27 @@
 import { readFileSeparated, toNumber, expect } from "../helpers";
 import { Solution } from "..";
+import { sum } from "lodash";
 
 const DAY = "01";
 
-type Input = string[];
-const parseInput = (values: string[]): Input => values;
+type Input = number[][];
+const parseInput = (values: string[]): Input =>
+  values.map((value) => value.split("\n").map((n) => Number(n)));
 
-const getInput = readFileSeparated("\n", DAY, "input").then(parseInput);
-const getTestInput = readFileSeparated("\n", DAY, "testInput").then(parseInput);
+const getInput = readFileSeparated("\n\n", DAY, "input").then(parseInput);
+const getTestInput = readFileSeparated("\n\n", DAY, "testInput").then(
+  parseInput
+);
 
 const processPartOne = (input: Input): number => {
-  return NaN;
+  return Math.max(...input.map((elf) => sum(elf)));
 };
 
 const processPartTwo = (input: Input): number => {
-  return NaN;
+  const totals = input.map((elf) => sum(elf));
+  const topThree = totals.sort((a, b) => b - a).slice(0, 3);
+  console.log(topThree);
+  return sum(topThree);
 };
 
 const solution: Solution = async () => {
@@ -24,8 +31,8 @@ const solution: Solution = async () => {
 
 solution.tests = async () => {
   const testInput = await getTestInput;
-  await expect(() => processPartOne(testInput), 3.141592653589793);
-  // await expect(() => processPartTwo(testInput), 3.141592653589793);
+  await expect(() => processPartOne(testInput), 24000);
+  await expect(() => processPartTwo(testInput), 45000);
 };
 
 solution.partTwo = async () => {
