@@ -19,9 +19,7 @@ const processPartOne = (input: Input): number => {
 
 const processPartTwo = (input: Input): number => {
   const totals = input.map((elf) => sum(elf));
-  const topThree = totals.sort((a, b) => b - a).slice(0, 3);
-  console.log(topThree);
-  return sum(topThree);
+  return sum(totals.sort((a, b) => b - a).slice(0, 3));
 };
 
 const solution: Solution = async () => {

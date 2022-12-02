@@ -4,7 +4,8 @@ import { Solution } from "..";
 const DAY = "{DAY}";
 
 type Input = string[];
-const parseInput = (values: string[]): Input => values;
+const parseInput = (values: string[]): Input =>
+  values.filter((v) => v !== "").map((v) => v);
 
 const getInput = readFileSeparated("\n", DAY, "input").then(parseInput);
 const getTestInput = readFileSeparated("\n", DAY, "testInput").then(parseInput);
